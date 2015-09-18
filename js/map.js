@@ -23,13 +23,14 @@ $(function() {
 
     var features = map.data.addGeoJson(laVictoria);
     map.data.setStyle(function(feature) {
-        var mapLabel = new MapLabel({
-          text: feature.getProperty('name'),
-          position: new google.maps.LatLng(feature.getProperty('mid-point').long, feature.getProperty('mid-point').lat),
-          map: map,
-          fontSize: 15,
-          align: 'center'
-        });
+        if(feature.getProperty('punto-medio'))
+            var mapLabel = new MapLabel({
+              text: feature.getProperty('nombre'),
+              position: new google.maps.LatLng(feature.getProperty('punto-medio').lng, feature.getProperty('punto-medio').lat),
+              map: map,
+              fontSize: 15,
+              align: 'center'
+            });
         return ({
             fillColor: feature.getProperty('fill'),
             fillOpacity: 0.3,
