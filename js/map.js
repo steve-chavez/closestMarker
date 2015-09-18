@@ -1,53 +1,20 @@
-/* Pull local Farers market data from the USDA API and display on 
-** Google Maps using GeoLocation or user input zip code. By Paul Dessert
-** www.pauldessert.com | www.seedtip.com
-*/
-
 $(function() {
 	
-		var pos;
-		var userCords;
-		var tempMarkerHolder = [];
-		
-		//Start geolocation
-		
-		if (navigator.geolocation) {    
-		
-			function error(err) {
-				console.warn('ERROR(' + err.code + '): ' + err.message);
-			}
-			
-			function success(pos){
-				userCords = pos.coords;
-				
-				//return userCords;
-			}
-		
-			// Get the user's current position
-			navigator.geolocation.getCurrentPosition(success, error);
-			//console.log(pos.latitude + " " + pos.longitude);
-			} else {
-				alert('Geolocation is not supported in your browser');
-			}
-		
-		//End Geo location
-	
-		//map options
-		var mapOptions = {
-			zoom: 14,
-			center: new google.maps.LatLng(-12.07, -77.01),
-			panControl: false,
-			panControlOptions: {
-				position: google.maps.ControlPosition.BOTTOM_LEFT
-			},
-			zoomControl: true,
-			zoomControlOptions: {
-				style: google.maps.ZoomControlStyle.LARGE,
-				position: google.maps.ControlPosition.RIGHT_CENTER
-			},
-			scaleControl: false
+    var mapOptions = {
+        zoom: 14,
+        center: new google.maps.LatLng(-12.07, -77.01),
+        panControl: false,
+        panControlOptions: {
+            position: google.maps.ControlPosition.BOTTOM_LEFT
+        },
+        zoomControl: true,
+        zoomControlOptions: {
+            style: google.maps.ZoomControlStyle.LARGE,
+            position: google.maps.ControlPosition.RIGHT_CENTER
+        },
+        scaleControl: false
 
-		};
+    };
 	
 	map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
     //superagent.get('http://localhost:3000/polyview').end(function(err, res){
@@ -131,15 +98,6 @@ $(function() {
     var alreadyLoaded = false;
     var line = null;
     var markers = null;
-  
-    //google.maps.event.addListener(map, 'tilesloaded', function () {
-        //var mapBounds = map.getBounds();
-        //var markers = [];
-        //if(!alreadyLoaded){
-            //markers = generateRandomMarkers(map, 20);
-            //alreadyLoaded = true;
-        //}
-    //});
 
     $("#buttonGenerate").click(function(){
         if(markers)
@@ -147,7 +105,7 @@ $(function() {
         markers = generateRandomMarkers(map, $("#inputNroRecursos").val());
     });
 
-    google.maps.event.addListener(map, "rightclick", function(event) {
+    var doMain = function(event){
         var lat = event.latLng.lat();
         var lng = event.latLng.lng();
         var path = []
@@ -165,9 +123,15 @@ $(function() {
             strokeOpacity: 1.0,
             strokeWeight: 2
         });
+    };
 
+    //Geojson is limited, can't manipulate the editable attribute on polygon, so I set a listener to all map data
+    map.data.addListener('rightclick', function(event) {
+        doMain(event);
     });
 
-    return false; // important: prevent the form from submitting
+    google.maps.event.addListener(map, "rightclick", function(event) {
+        doMain(event);
+    });
 });
 
