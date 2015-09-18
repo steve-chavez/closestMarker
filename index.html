@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<title>Busqueda de calles</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	
+	<!--[if lt IE 9]>
+		<script src="/js/html5shiv.min.js"></script>
+	<![endif]-->
+	
+	<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key="></script>
+	<script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/superagent/1.2.0/superagent.min.js"></script>
+	<script language="javascript" type="text/javascript" src="https://rawgit.com/googlemaps/js-map-label/gh-pages/src/maplabel-compiled.js"></script>
+	<script language="javascript" type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  </head>
+  <body>
+  
+	<div id="control">
+		<h2>Ubicación del recurso más cercano</h2>
+        <div style="margin-bottom: 10px"></div>
+        <p>Haga click derecho para buscar el recurso más proximo a la posición del lugar clickeado</p>
+        <div style="margin-bottom: 50px"></div>
+        <label for="nro-recursos">Nro de recursos aleatorios</label>
+        <div style="margin-bottom: 10px"></div>
+        <input id="inputNroRecursos" style="background-color: white" name="nro-recursos" type="text" value="20">
+        <button id="buttonGenerate" type="submit" class="learnButton">Generar recursos</button>
+        <div class="clear"></div>
+		<div class="clear"></div>
+		<div id="results"></div>
+	</div>
+    <script language="javascript" type="text/javascript" src="js/la-victoria.js"></script>
+    <script language="javascript" type="text/javascript" src="js/map.js"></script>
+	<!-- an empty div for the map -->
+	<div id="map-canvas"></div>
+
+
+  </body>
+</html>
